@@ -48,6 +48,14 @@
     height: 100%;
     margin: 16px;
     min-height: 326px;
+    .img {
+      min-height: 200px;
+      max-height: 200px;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 2s ease-in;
+      background-position: 50% 50%;
+    }
     &:hover {
       opacity: 0.7;
       .img {
@@ -108,13 +116,6 @@
       padding: 8px;
     }
 
-    .img {
-      min-height: 200px;
-      max-height: 200px;
-      background-size: 100%;
-      background-repeat: no-repeat;
-      transition: 3s;
-      background-position: 50% 50%;
-    }
+    
   }
 </style>
