@@ -20,17 +20,23 @@
       });
   });
 </script>
-
-<div class="card-wrapper">
-  {#each turs as tur}
-    <Card data={tur}/>
-  {/each}
-</div>
+<main>
+  <div class="card-wrapper">
+    {#each turs as tur}
+      <Card data={tur}/>
+    {/each}
+  </div>
+</main>
 
 <style>
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   .card-wrapper {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: ; */
+    justify-content: center;
   }
 </style>

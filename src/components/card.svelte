@@ -3,10 +3,13 @@
 </script>
 
 <div class="card">
-  <div class="img">sdsdsd</div>
+  <div class="img" style="background-image: url(https://turizm.bitrix24.ru/{data.PROPERTY_152?.[0]?.value?.downloadUrl})"></div>
   <div class="footer">
     {data['NAME']}
     {data['PRICE']}
+    {#if data.PROPERTY_318?.value} ночей {data.PROPERTY_318?.value}{/if}
+    {#if data.PROPERTY_320?.value} звезд {data.PROPERTY_320?.value}{/if}
+    
   </div>
 </div>
 
@@ -21,7 +24,19 @@
     height: 100%;
     margin: 16px;
   }
+ 
+  .img {
+    min-height: 200px;
+    max-height: 200px;
+    background-size: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    transition: 3s;
+  }
   .card:hover {
     opacity: 0.7;
+  }
+  .card:hover .img {
+    background-size: 120% 120%;
   }
 </style>
