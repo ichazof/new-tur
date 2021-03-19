@@ -2,11 +2,34 @@ import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { terser } from 'rollup-plugin-terser';
+import {
+	nodeResolve
+} from '@rollup/plugin-node-resolve';
+import {
+	terser
+} from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
+import sveltePreprocess from 'svelte-preprocess';
+
+
 const production = !process.env.ROLLUP_WATCH;
+
+// const preprocess = sveltePreprocess({
+// 	scss: {
+// 		// includePaths: ['scss'],
+
+// 		// data: `
+// 		// @import '../scss/global.scss';
+// 		// @import '../scss/buttons.scss';
+// 		// @import '../scss/page.scss';
+// 		// `,
+// 	},
+
+// 	postcss: {
+// 		plugins: [require('autoprefixer')],
+// 	},
+// });
 
 function serve() {
 	let server;
@@ -42,11 +65,15 @@ export default {
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
-			}
+			},
+			preprocess: sveltePreprocess()
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
+		css({
+			output: 'bundle.css'
+		}),
+		// preprocess,
 		nodeResolve(),
 
 		// If you have external dependencies installed from
