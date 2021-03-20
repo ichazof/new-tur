@@ -1,6 +1,42 @@
 <script>
   import dateFormat from "dateformat";
+  // var dateFormat = require("dateformat");
+  dateFormat.i18n = {
+    monthNames: [
+      "января",
+      "февраля",
+      "марта",
+      "апреля",
+      "мая",
+      "июня",
+      "июля",
+      "августа",
+      "сентября",
+      "октября",
+      "ноября",
+      "декакбря",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+  };
   export let data = {};
+  const formatter = new Intl.NumberFormat("ru-RU", {
+    minimumFractionDigits: 0,
+  }).format;
+  $: oldPrice =
+    formatter(parseInt(data?.["PRICE"] * ((Math.random() * 40) / 100 + 1))) ||
+    undefined;
+  $: price = formatter(data?.["PRICE"]) || undefined;
 </script>
 
 <div class="card">
@@ -24,14 +60,16 @@
     {/if}
 
     {#if data.PROPERTY_322?.value}
-      <span class="date">{dateFormat(data.PROPERTY_322?.value, "d mmmm")}</span>
+      <span class="date">{dateFormat(data.PROPERTY_322?.value, "d mmm")}</span>
     {/if}
     {#if data.PROPERTY_318?.value}<span class="date">
         на {data.PROPERTY_318?.value} ночей
       </span>
     {/if}
-
-    <div class="price">{data["PRICE"]}</div>
+    <div class="price-wrapper">
+      <span class="old-price">{oldPrice}</span>
+      <span class="price">{price}</span>
+    </div>
   </div>
 </div>
 
@@ -42,11 +80,11 @@
     width: 320px;
     margin: auto;
     border-radius: 5px;
-    text-align: center;
     font-family: arial;
     overflow: hidden;
     height: 100%;
     margin: 16px;
+    cursor: pointer;
     min-height: 326px;
     .img {
       min-height: 200px;
@@ -94,6 +132,11 @@
       text-align: left;
       font-size: 12px;
     }
+    .price-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
     .price {
       font-family: "Open Sans", "Trebuchet MS", arial, sans-serif;
       font-size: 24px;
@@ -110,12 +153,28 @@
         text-transform: uppercase;
       }
     }
+    .old-price {
+      font-family: "Open Sans", "Trebuchet MS", arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.39;
+      font-weight: 400;
+      height: 24px;
+      text-align: left;
+      text-decoration: line-through;
+      opacity: 0.6;
+      text-size-adjust: 100%;
+      &:after {
+        content: " руб";
+        display: inline;
+        font-size: 10px;
+        opacity: 0.8;
+        text-transform: uppercase;
+      }
+    }
 
     .footer {
       height: 100%;
       padding: 8px;
     }
-
-    
   }
 </style>
