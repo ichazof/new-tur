@@ -1,6 +1,15 @@
 <script>
   import dateFormat from "dateformat";
-  // var dateFormat = require("dateformat");
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  function showModal() {
+		dispatch('modal', {
+			text: 'Hello!'
+		});
+	}
+
   dateFormat.i18n = {
     monthNames: [
       "января",
@@ -39,7 +48,7 @@
   $: price = formatter(data?.["PRICE"]) || undefined;
 </script>
 
-<div class="card">
+<div class="card" on:click={showModal}>
   <div
     class="img"
     style="background-image: url(https://turizm.bitrix24.ru/{data
@@ -71,6 +80,7 @@
       <span class="price">{price}</span>
     </div>
   </div>
+
 </div>
 
 <style lang="scss">
