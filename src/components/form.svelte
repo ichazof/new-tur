@@ -2,29 +2,67 @@
   import { Modal, Button, Card, Input, Field } from "svelte-chota";
   import MaskInput from "svelte-input-mask/MaskInput.svelte";
   export let open = true;
-  const modal_hide = (event) => (open = false);
+  export let modalData = {};
+  let name = '';
+  let phone = '';
+  let isSucces = false;
+  let isLoading = false;
+  $: price = `Вам понравилось предложение ${modalData?.name} за ${modalData?.price}`
+  $: title = `${modalData?.name}, ${modalData?.date},  ${modalData?.price}rub`
+  const modal_hide = () => (open = false);
+  const handleChangePhone = (event) => {
+    phone = event.detail.inputState.maskedValue.split(' ').join('')
+    console.log(modalData)
+  }
+  const send = () => {
+    isLoading = true
+    fetch("https://anexkrk.alyans.ru/site/form.lead.php", {
+      method: "POST",
+      headers: {
+        'Accept': "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone, name, title }),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          return;
+        }
+        isSucces = true
 
+      })
+      .catch(function (err) {
+        console.log("Fetch Error :-S", err);
+      })
+      .finally(() => {
+        isLoading = false
+      });
+  };
 </script>
 
-<Modal bind:open={open}>
-  <Card>
+<Modal bind:open>
+  {#if isSucces}
+    <Card>
+      <h2>Спасибо, что обратились к нам, мы скоро с Вами свяжемся</h2>
+    </Card>
 
-    <h2>Оставить заявку на тур</h2>
-    <Field label="Ваше имя">
-      <Input value="" placeholder="Имя"/>
-    </Field>
-    <Field label="Ваш телефон">
-      <MaskInput
-        mask="+7 (000) 000-0000"
-        size={18}
-        maskChar=" "
-/>
-    </Field>
-    <div slot="footer" class="is-right">
-      <Button clear on:click={modal_hide}>Отменить</Button>
-      <Button primary on:click={modal_hide}>Отпраить</Button>
-  </div>
-  </Card>
+  {:else}
+    <Card>
+      <h2>Оставить заявку на тур</h2>
+      <h4>{ price }</h4>
+      
+      <Field label="Ваше имя" value={name}>
+        <Input bind:value={name} placeholder="Имя" />
+      </Field>
+      <Field label="Ваш телефон">
+        <MaskInput bind:value={phone} mask="+7 (000) 000-0000" size={18} maskChar=" " on:change={handleChangePhone}/>
+      </Field>
+      <div slot="footer" class="is-right">
+        <Button clear on:click={modal_hide}>Отменить</Button>
+        <Button primary on:click={send} bind:loading={isLoading} >Отпраить</Button>
+      </div>
+    </Card>
+  {/if}  
 </Modal>
 
 <style lang="scss">

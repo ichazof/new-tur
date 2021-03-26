@@ -6,7 +6,9 @@
 
   function showModal() {
 		dispatch('modal', {
-			text: 'Hello!'
+			price,
+      name: data["NAME"],
+      date: dateFormat(data.PROPERTY_322?.value, "d mmm")
 		});
 	}
 
@@ -95,7 +97,7 @@
     height: 100%;
     margin: 16px;
     cursor: pointer;
-    min-height: 326px;
+    min-height: 362px;
     .img {
       min-height: 200px;
       max-height: 200px;
@@ -183,8 +185,12 @@
     }
 
     .footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       height: 100%;
       padding: 8px;
+      min-height: 120px;
     }
   }
 </style>
