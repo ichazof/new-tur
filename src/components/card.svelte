@@ -95,6 +95,7 @@
     font-family: arial;
     overflow: hidden;
     height: 100%;
+    padding: 0;
     margin: 16px;
     cursor: pointer;
     min-height: 362px;
