@@ -12,7 +12,6 @@
   const modal_hide = () => (open = false);
   const handleChangePhone = (event) => {
     phone = event.detail.inputState.maskedValue.split(' ').join('')
-    console.log(modalData)
   }
   const send = () => {
     isLoading = true
