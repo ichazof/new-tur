@@ -97,7 +97,7 @@
     &__background {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
-      z-index: 100;
+      z-index: 200;
 
       left: 0;
       top: 0;
@@ -114,7 +114,7 @@
       background-color: #fefefe;
       margin: 15% auto; /* 15% from the top and centered */
       padding: 20px;
-      z-index: 100;
+      z-index: 200;
       border: 1px solid #888;
       max-width: 600px;
       width: 80%; /* Could be more or less, depending on screen size */
