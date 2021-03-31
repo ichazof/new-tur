@@ -1,5 +1,5 @@
 <script>
-  import "chota";
+  // import "chota";
   import Card from "./components/card.svelte";
   import { onMount } from "svelte";
   import Form from "./components/form.svelte";
