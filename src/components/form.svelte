@@ -97,7 +97,8 @@
     &__background {
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
+      z-index: 100;
+
       left: 0;
       top: 0;
       width: 100%; /* Full width */
